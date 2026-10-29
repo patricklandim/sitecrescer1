@@ -1,0 +1,161 @@
+@import 'tailwindcss';
+@import '@fontsource-variable/figtree';
+@import '@fontsource-variable/bricolage-grotesque';
+
+/* ==========================================================================
+   Design tokens da Clínica Crescer
+   Para ajustar a identidade visual, altere apenas os valores abaixo.
+   O verde principal é provisório até a clínica enviar os códigos oficiais.
+   ========================================================================== */
+@theme {
+  --font-sans: 'Figtree Variable', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-display: 'Bricolage Grotesque Variable', 'Figtree Variable', ui-sans-serif, system-ui, sans-serif;
+
+  /* Verde Crescer (cor principal) */
+  --color-brand-50: #eef7f0;
+  --color-brand-100: #d7ecdc;
+  --color-brand-200: #b0d9bb;
+  --color-brand-300: #82c095;
+  --color-brand-400: #55a571;
+  --color-brand-500: #2f8a5a;
+  --color-brand-600: #23704a;
+  --color-brand-700: #1d5a3e;
+  --color-brand-800: #1d4a36;
+  --color-brand-900: #163a2b;
+  --color-brand-950: #0d2219;
+
+  /* Fundos quentes */
+  --color-cream-50: #fffdf8;
+  --color-cream-100: #fdf9f1;
+  --color-cream-200: #f8f1e3;
+  --color-cream-300: #efe4cf;
+
+  /* Cores das especialidades: base (forma), soft (fundo), deep (texto) */
+  --color-sun: #f6c343;
+  --color-sun-soft: #fdf1cc;
+  --color-sun-deep: #6e5000;
+
+  --color-coral: #f0705f;
+  --color-coral-soft: #fde0db;
+  --color-coral-deep: #93291c;
+
+  --color-leaf: #7cc25b;
+  --color-leaf-soft: #e3f3d9;
+  --color-leaf-deep: #2d5c17;
+
+  --color-sky: #4a8fe7;
+  --color-sky-soft: #dce9fb;
+  --color-sky-deep: #1b4a8c;
+
+  --color-grape: #9468d6;
+  --color-grape-soft: #ece2fa;
+  --color-grape-deep: #533196;
+
+  --color-tangerine: #f5934a;
+  --color-tangerine-soft: #fde6d3;
+  --color-tangerine-deep: #8a400c;
+
+  /* Tokens semânticos (padrão shadcn/ui) */
+  --color-background: var(--color-cream-100);
+  --color-foreground: var(--color-brand-900);
+  --color-primary: var(--color-brand-500);
+  --color-primary-foreground: var(--color-cream-50);
+  --color-muted: var(--color-cream-200);
+  --color-muted-foreground: #4b6359;
+  --color-card: var(--color-cream-50);
+  --color-border: #e4dccb;
+  --color-ring: var(--color-brand-500);
+
+  --radius-blob: 2.5rem;
+
+  --animate-marquee: marquee var(--marquee-duration, 40s) linear infinite;
+  --animate-float: float 7s ease-in-out infinite;
+  --animate-spin-slow: spin 28s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Compensa a altura do header fixo ao navegar por âncoras */
+  section[id] {
+    scroll-margin-top: 5.5rem;
+  }
+
+  h1, h2, h3, h4 {
+    @apply font-display;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-sun);
+    color: var(--color-brand-950);
+  }
+
+  /* Foco visível consistente em todo o site */
+  :focus-visible {
+    outline: 3px solid var(--color-brand-500);
+    outline-offset: 3px;
+    border-radius: 0.5rem;
+  }
+}
+
+/* Keyframes usados por componentes Radix (accordion e dialog) */
+@keyframes accordion-down {
+  from { height: 0; opacity: 0; }
+  to { height: var(--radix-accordion-content-height); opacity: 1; }
+}
+@keyframes accordion-up {
+  from { height: var(--radix-accordion-content-height); opacity: 1; }
+  to { height: 0; opacity: 0; }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+@keyframes dialog-in {
+  from { opacity: 0; transform: translate(-50%, -46%) scale(0.97); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+}
+@keyframes sheet-in {
+  from { opacity: 0; transform: translateY(-1rem); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Respeita quem prefere menos movimento */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
